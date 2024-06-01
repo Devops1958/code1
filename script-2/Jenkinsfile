@@ -27,7 +27,9 @@
         steps{
             sh 'curl -uadmin:APAtrqGdCmQEVEvzSAvbZF6a9tv -T \
             target/bio*.jar \
-            "http://54.88.190.251:8081/artifactory/Geosolution/file1/bio-${BUILD_ID}.jar"'
+            "http://ec2-100-26-220-244.compute-1.amazonaws.com:8081/artifactory/Geosolution/file1/bio-${BUILD_ID}.jar"'
+            
+            
         }
     }
        
