@@ -1,0 +1,36 @@
+ pipeline{
+   agent any 
+   tools{
+    maven 'M2_HOME'
+   }
+   stages{
+    stage('sonar-scan'){
+        steps{
+            withSonarQubeEnv('sonarQube'){
+        sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=devops1958_geo-location'
+            }
+          
+        
+        }
+    }
+    stage("maven"){
+        steps{ 
+        sh 'mvn clean validate compile install test package'
+        sh 'cat /etc/os-release'
+        sh 'unamem -r'
+        mkdir 'code-updated'
+        }
+    }     
+ 
+   
+    stage('upload artifact'){
+        steps{
+            sh 'curl -uadmin:APAtrqGdCmQEVEvzSAvbZF6a9tv -T \
+            target/bio*.jar \
+            "http://54.88.190.251:8081/artifactory/Geosolution/file1/bio-${BUILD_ID}.jar"'
+        }
+    }
+       
+    }
+}
+    
