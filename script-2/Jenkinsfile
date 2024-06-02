@@ -16,9 +16,6 @@
     stage("maven"){
         steps{ 
         sh 'mvn clean validate compile install test package'
-        sh 'cat /etc/os-release'
-        sh 'unamem -r'
-        mkdir 'code-updated'
         }
     }     
  
@@ -27,9 +24,7 @@
         steps{
             sh 'curl -uadmin:APAtrqGdCmQEVEvzSAvbZF6a9tv -T \
             target/bio*.jar \
-            "http://ec2-100-26-220-244.compute-1.amazonaws.com:8081/artifactory/Geosolution/file1/bio-${BUILD_ID}.jar"'
-            
-            
+            "http://100.26.220.244:8081/artifactory/Geosolution/file1/bio-${BUILD_ID}.jar"'
         }
     }
        
